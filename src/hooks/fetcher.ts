@@ -1,29 +1,21 @@
 import { fetchProducts } from '@app/clients/oda';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function useSearchProducts(search: string) {
+function useSearchProducts(search: string, page: number) {
   const [products, setProducts] = useState<ProductRes[]>([]);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchProducts(search);
+      const data = await fetchProducts(search, page);
+      setHasMore(data.attributes.has_more_items);
       setProducts(data.items);
     };
 
-    const fetchWithDebouncing = () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+    fetchData();
+  }, [page, search]);
 
-      const id = setTimeout(() => fetchData(), 500);
-      timeoutRef.current = id;
-    };
-
-    fetchWithDebouncing();
-  }, [search]);
-
-  return products;
+  return { products, hasMore };
 }
 
 export default useSearchProducts;

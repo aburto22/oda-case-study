@@ -14,9 +14,10 @@ app.use(
 app.get('/search', async (req, res) => {
   const url = new URL('https://oda.com/api/v1/search/mixed/');
 
-  const { q = '' } = req.query;
+  const { q = '', page = '1' } = req.query;
 
   url.searchParams.set('q', q as string);
+  url.searchParams.set('page', page as string);
   url.searchParams.set('type', 'product');
 
   const resFetch = await fetch(url);

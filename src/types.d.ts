@@ -32,6 +32,7 @@ type ApiRes = {
     items: number;
     page: number;
     has_more_items: boolean;
+    query_string: string;
   };
   items: ProductRes[];
 };

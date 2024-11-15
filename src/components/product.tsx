@@ -16,9 +16,9 @@ function Product({ product }: ProductProps) {
           className="max-h-full max-w-full object-contain"
         />
       </div>
-      <h3>{product.name}</h3>
+      <h3 className="pb-1 leading-5">{product.name}</h3>
       <p className="text-sm font-semibold">
-        {product.currency} {product.gross_price}{' '}
+        {product.currency} {product.gross_price}
       </p>
     </article>
   );
