@@ -1,38 +1,38 @@
-declare type City = {
-  id: number;
+type Product = {
+  id: string;
   name: string;
-  country: string;
-  latitude: number;
-  longitude: number;
+  gross_unit_price: string;
+  unit_price_quantity_abbreviation: string;
+  currency: string;
+  availability: {
+    is_available: boolean;
+  };
+  images: {
+    large: {
+      url: string;
+      width: number;
+      height: number;
+    };
+    thumbnail: {
+      url: string;
+      width: number;
+      height: number;
+    };
+  };
 };
 
-declare type Customer = {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
+type ProductRes = {
+  id: string;
+  type: 'product';
+  attributes: Product;
 };
 
-declare type Car = {
-  id: number;
-  model: string;
-  registrationNumber: string;
-  price_per_hour: number;
-  price_per_day: number;
-  homeCity: number;
-};
-
-declare type CarPopulated = Car & {
-  city: City | undefined;
-};
-
-declare type Extra = 'GPS' | 'Child Seat' | 'Wi-Fi' | 'Extra Driver';
-
-declare type Booking = {
-  carId: number;
-  customerId: number;
-  startDate: Date;
-  endDate: Date;
-  extras: Extra[];
+type ApiRes = {
+  type: 'product';
+  attributes: {
+    items: number;
+    page: number;
+    has_more_items: boolean;
+  };
+  items: ProductRes[];
 };
