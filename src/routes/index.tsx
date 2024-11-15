@@ -1,3 +1,4 @@
+import Product from '@app/components/product';
 import useSearchProducts from '@app/hooks/fetcher';
 import { useState } from 'react';
 
@@ -16,9 +17,11 @@ function Index() {
           className="rounded border border-secondary-content bg-secondary p-1"
         />
       </label>
-      <ul>
+      <ul className="flex max-w-full flex-wrap justify-center gap-4 p-8">
         {products.map(product => (
-          <li key={product.id}>{product.attributes.name}</li>
+          <li key={product.id}>
+            <Product product={product.attributes} />
+          </li>
         ))}
       </ul>
     </main>

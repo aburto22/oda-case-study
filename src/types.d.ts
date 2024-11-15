@@ -1,24 +1,23 @@
+type ProductImage = {
+  url: string;
+  width: number;
+  height: number;
+};
+
+type ProductImageSet = {
+  large: ProductImage;
+  thumbnail: ProductImage;
+};
+
 type Product = {
   id: string;
   name: string;
-  gross_unit_price: string;
-  unit_price_quantity_abbreviation: string;
+  gross_price: string;
   currency: string;
   availability: {
     is_available: boolean;
   };
-  images: {
-    large: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    thumbnail: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
+  images: ProductImageSet[];
 };
 
 type ProductRes = {
