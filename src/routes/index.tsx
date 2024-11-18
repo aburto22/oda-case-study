@@ -23,7 +23,7 @@ function Index() {
   }, []);
 
   return (
-    <main>
+    <main className="p-8">
       <DebouncedSearch onChange={handleSearchChange} />
       <ul className="flex max-w-full flex-wrap justify-center gap-4 p-8">
         {products.map(product => (

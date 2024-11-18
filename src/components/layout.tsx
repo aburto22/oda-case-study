@@ -8,6 +8,9 @@ function MainLayout({ children }: PropsWithChildren) {
         <p>Search list</p>
       </header>
       {children}
+      <footer className="flex min-h-28 items-center justify-center bg-primary text-sm text-primary-content">
+        Created by Alejandro Aburto S.
+      </footer>
     </>
   );
 }
