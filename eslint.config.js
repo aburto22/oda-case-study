@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 import prettierRecommend from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'dist-server'] },
   {
     extends: [
       js.configs.recommended,

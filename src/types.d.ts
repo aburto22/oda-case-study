@@ -10,7 +10,7 @@ type ProductImageSet = {
 };
 
 type Product = {
-  id: string;
+  id: number;
   name: string;
   gross_price: string;
   currency: string;
@@ -21,7 +21,7 @@ type Product = {
 };
 
 type ProductRes = {
-  id: string;
+  id: number;
   type: 'product';
   attributes: Product;
 };
