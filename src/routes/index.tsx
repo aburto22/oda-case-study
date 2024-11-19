@@ -2,12 +2,14 @@ import Pagination from '@app/components/pagination';
 import Product from '@app/components/product';
 import DebouncedSearch from '@app/components/search';
 import useSearchProducts from '@app/hooks/fetcher';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 function Index() {
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const { products, hasMore } = useSearchProducts(search, page);
+  const [urlSearchParams] = useSearchParams();
+
+  const page = urlSearchParams.get('page') || '1';
+  const { products, hasMore } = useSearchProducts();
 
   useEffect(() => {
     window.scrollTo({
@@ -17,14 +19,9 @@ function Index() {
     });
   }, [page]);
 
-  const handleSearchChange = useCallback((value: string) => {
-    setSearch(value);
-    setPage(1);
-  }, []);
-
   return (
     <main className="p-8">
-      <DebouncedSearch onChange={handleSearchChange} />
+      <DebouncedSearch />
       <ul className="flex max-w-full flex-wrap justify-center gap-4 p-8">
         {products.map(product => (
           <li key={product.id}>
@@ -32,12 +29,7 @@ function Index() {
           </li>
         ))}
       </ul>
-      <Pagination
-        page={page}
-        next={() => setPage(page + 1)}
-        prev={() => setPage(page - 1)}
-        hasMore={hasMore}
-      />
+      <Pagination hasMore={hasMore} />
     </main>
   );
 }

@@ -1,25 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-type SearchProps = {
-  onChange: (value: string) => void;
-};
-
-function DebouncedSearch({ onChange }: SearchProps) {
+function DebouncedSearch() {
   const [value, setValue] = useState('');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [urlSearchParams, setUrlSearchParam] = useSearchParams();
+
+  const search = urlSearchParams.get('search') || '';
+
+  const handleSearch = useCallback(
+    (value: string) => {
+      setUrlSearchParam(current => {
+        current.set('search', value);
+        current.set('page', '1');
+        return current;
+      });
+    },
+    [setUrlSearchParam],
+  );
 
   useEffect(() => {
     const handleChange = () => {
+      if (value === search) return;
+
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
 
-      const id = setTimeout(() => onChange(value), 500);
+      const id = setTimeout(() => handleSearch(value), 500);
       timeoutRef.current = id;
     };
 
     handleChange();
-  }, [value, onChange]);
+  }, [value, handleSearch, search]);
 
   return (
     <label className="mx-auto flex max-w-64 flex-col gap-1 p-4">
