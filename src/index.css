@@ -15,12 +15,6 @@
   --tertiary-content-color: var(--text-primary-color);
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 body {
   background-color: var(--background-primary-color);
   color: var(--text-primary-color);

@@ -1,3 +1,4 @@
+import useSearchProducts from '@app/hooks/fetcher';
 import { PropsWithChildren } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -22,13 +23,9 @@ function Button({
   );
 }
 
-type PaginationProps = {
-  hasMore: boolean;
-};
-
-function Pagination({ hasMore }: PaginationProps) {
+function Pagination() {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const { hasMore } = useSearchProducts();
   const page = searchParams.get('page') || '1';
 
   const prevPage = () => {
