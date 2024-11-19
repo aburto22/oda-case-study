@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 type ButtonProps = {
   onClick: () => void;
@@ -22,20 +23,35 @@ function Button({
 }
 
 type PaginationProps = {
-  page: number;
-  next: () => void;
-  prev: () => void;
   hasMore: boolean;
 };
 
-function Pagination({ page, prev, next, hasMore }: PaginationProps) {
+function Pagination({ hasMore }: PaginationProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = searchParams.get('page') || '1';
+
+  const prevPage = () => {
+    setSearchParams(current => {
+      current.set('page', `${Number(page) - 1}`);
+      return current;
+    });
+  };
+
+  const nextPage = () => {
+    setSearchParams(current => {
+      current.set('page', `${Number(page) + 1}`);
+      return current;
+    });
+  };
+
   return (
     <section className="flex items-center justify-center gap-2 p-2">
-      <Button onClick={prev} disabled={page <= 1}>
-        Previous button
+      <Button onClick={prevPage} disabled={Number(page) <= 1}>
+        Prev
       </Button>
       Page {page}
-      <Button onClick={next} disabled={!hasMore}>
+      <Button onClick={nextPage} disabled={!hasMore}>
         Next
       </Button>
     </section>
