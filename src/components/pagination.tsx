@@ -32,7 +32,7 @@ function Pagination({ page, prev, next, hasMore }: PaginationProps) {
   return (
     <section className="flex items-center justify-center gap-2 p-2">
       <Button onClick={prev} disabled={page <= 1}>
-        Prev
+        Previous button
       </Button>
       Page {page}
       <Button onClick={next} disabled={!hasMore}>
