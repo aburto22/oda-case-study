@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 function DebouncedSearch() {
-  const [value, setValue] = useState('');
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [urlSearchParams, setUrlSearchParam] = useSearchParams();
-
   const search = urlSearchParams.get('search') || '';
+
+  const [value, setValue] = useState(search);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSearch = useCallback(
     (value: string) => {
